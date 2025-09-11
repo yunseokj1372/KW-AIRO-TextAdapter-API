@@ -8,3 +8,4 @@ __pycache__/
 /app/models/final_flan_models/*
 .env
 prediction.log
+/app/model/*

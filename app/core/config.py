@@ -1,11 +1,14 @@
 import pydantic_settings
 
 class Settings(pydantic_settings.BaseSettings):
-    model_path: str
-    tokenizer: str
-    class_path: str
-    mongodb_url: str
-    mongodb_db_name: str
+    MODELS_DIR: str
+    AMB_CLASS_PATH: str
+    MS_CLASS_PATH: str
+    MS_SPLIT_PATH: str
+    CLASS_TOKENIZER: str
+    MODEL_TOKENIZER: str
+    SECRET_KEY: str
+    TOKEN: str
 
     class Config:
         env_file = ".env"
