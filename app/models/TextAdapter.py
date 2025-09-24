@@ -40,7 +40,7 @@ class TextAdapter:
         self.models_tokenizer = self.load_tokenizer(tokenizer=self.models_tokenizer_path)
         self.all_model = self.load_model(model_path=os.path.join(self.models_path, 'all'))
 
-        #self.ref_ref_model = self.load_model(model_path=os.path.join(self.models_path, 'ref_ref'))
+        self.ref_ref_model = self.load_model(model_path=os.path.join(self.models_path, 'ref_ref'))
         #self.wsm_wsm_model = self.load_model(model_path=os.path.join(self.models_path, 'wsm_wsm'))
         #self.wsm_dry_model = self.load_model(model_path=os.path.join(self.models_path, 'wsm_dry'))
         #self.vde_led_model = self.load_model(model_path=os.path.join(self.models_path, 'vde_led'))
@@ -221,12 +221,17 @@ class TextAdapter:
         Returns a list containing 3 symptoms
         """
         try:
+            if product_type == "REF_REF":
+                model = self.ref_ref_model
+            else:
+                model = self.all_model
+            
             print(f"Description: {description}")
             input_str = "Predict the failure symptoms.\nDescription:" + str(description)
             input = self.models_tokenizer(input_str, return_tensors="pt", truncation=True, max_length=256)
 
             with torch.no_grad():
-                output = self.all_model.generate(
+                output = model.generate(
                     **input,
                     max_new_tokens=64,
                     repetition_penalty=1.2,

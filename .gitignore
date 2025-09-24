@@ -9,3 +9,4 @@ __pycache__/
 .env
 prediction.log
 /app/model/*
+/temp_model_transfer/*
